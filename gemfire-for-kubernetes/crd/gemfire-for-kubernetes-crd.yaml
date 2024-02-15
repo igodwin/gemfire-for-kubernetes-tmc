@@ -1,0 +1,18 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gemfire-crd
+  namespace: service-instances
+spec:
+  interval: 5m
+  chart:
+    spec:
+      version: "2.3.*"
+      chart: gemfire-crd
+      sourceRef:
+        kind: HelmRepository
+        name: gemfire-for-kubernetes
+      interval: 60m
+  values:
+    operatorReleaseName: "gemfire-operator"
