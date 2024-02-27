@@ -9,4 +9,4 @@ spec:
   type: "oci"
   url: oci://registry.tanzu.vmware.com/tanzu-gemfire-for-kubernetes
   secretRef:
-    name: image-pull-secret
+    name: gemfire-image-pull-secret
