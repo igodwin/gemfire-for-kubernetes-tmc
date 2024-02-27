@@ -1,0 +1,112 @@
+# prerequisites
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: tanzu-packages-cert-manager
+  namespace: tanzu-continuousdelivery-resources
+spec:
+  dependsOn:
+    - name: tanzu-gitops-serviceacct
+  interval: 1m0s
+  path: ./cert-manager
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: gemfire-for-kubernetes-tmc
+    namespace: tanzu-continuousdelivery-resources
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: cert-manager
+      namespace: cert-manager
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: image-pull-secret-export-import
+  namespace: tanzu-continuousdelivery-resources
+spec:
+  dependsOn:
+    - name: package-and-service-instances-namespaces
+  interval: 1m0s
+  path: ./gemfire-for-kubernetes/image-pull-secret
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: gemfire-for-kubernetes-tmc
+    namespace: tanzu-continuousdelivery-resources
+  healthChecks:
+    - apiVersion: v1
+      kind: Secret
+      name: image-pull-secret
+      namespace: service-instances
+    - apiVersion: v1
+      kind: Secret
+      name: image-pull-secret
+      namespace: tanzu-kustomize-controller
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: gemfire-for-kubernetes-repository
+  namespace: tanzu-continuousdelivery-resources
+spec:
+  dependsOn:
+    - name: tanzu-packages-cert-manager
+    - name: image-pull-secret-export-import
+  interval: 1m0s
+  path: ./gemfire-for-kubernetes/repository
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: gemfire-for-kubernetes-tmc
+    namespace: tanzu-continuousdelivery-resources
+  healthChecks:
+    - apiVersion: source.toolkit.fluxcd.io/v1beta2
+      kind: HelmRepository
+      name: gemfire-for-kubernetes
+      namespace: service-instances
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: gemfire-for-kubernetes-crd
+  namespace: tanzu-continuousdelivery-resources
+spec:
+  dependsOn:
+    - name: gemfire-for-kubernetes-repository
+  interval: 1m0s
+  path: ./gemfire-for-kubernetes/crd
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: gemfire-for-kubernetes-tmc
+    namespace: tanzu-continuousdelivery-resources
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: gemfire-crd
+      namespace: service-instances
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: gemfire-for-kubernetes-operator
+  namespace: tanzu-continuousdelivery-resources
+spec:
+  dependsOn:
+    - name: gemfire-for-kubernetes-crd
+  interval: 1m0s
+  path: ./gemfire-for-kubernetes/operator
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: gemfire-for-kubernetes-tmc
+    namespace: tanzu-continuousdelivery-resources
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: gemfire-operator
+      namespace: service-instances
+
