@@ -2,11 +2,11 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: gemfire-for-kubernetes
+  name: sql-postgres
   namespace: service-instances
 spec:
   interval: 5m
   type: "oci"
-  url: oci://registry.tanzu.vmware.com/tanzu-gemfire-for-kubernetes
+  url: oci://registry.tanzu.vmware.com/tanzu-sql-postgres
   secretRef:
     name: tanzu-network-credentials

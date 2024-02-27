@@ -23,14 +23,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: gemfire-for-kubernetes-repository
+  name: sql-postgres-repository
   namespace: tanzu-continuousdelivery-resources
 spec:
   dependsOn:
     - name: tanzu-packages-cert-manager
     - name: tanzu-network-credentials-export-import
   interval: 1m0s
-  path: ./gemfire-for-kubernetes/repository
+  path: ./sql-postgres/repository
   prune: true
   sourceRef:
     kind: GitRepository
@@ -39,19 +39,19 @@ spec:
   healthChecks:
     - apiVersion: source.toolkit.fluxcd.io/v1beta2
       kind: HelmRepository
-      name: gemfire-for-kubernetes
+      name: sql-postgres
       namespace: service-instances
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: gemfire-for-kubernetes-crd
+  name: sql-postgres
   namespace: tanzu-continuousdelivery-resources
 spec:
   dependsOn:
-    - name: gemfire-for-kubernetes-repository
+    - name: sql-postgres-repository
   interval: 1m0s
-  path: ./gemfire-for-kubernetes/release-crd
+  path: ./sql-postgres/release
   prune: true
   sourceRef:
     kind: GitRepository
@@ -60,27 +60,5 @@ spec:
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
-      name: gemfire-crd
+      name: sql-postgres
       namespace: service-instances
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: gemfire-for-kubernetes-operator
-  namespace: tanzu-continuousdelivery-resources
-spec:
-  dependsOn:
-    - name: gemfire-for-kubernetes-crd
-  interval: 1m0s
-  path: ./gemfire-for-kubernetes/release-operator
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: gemfire-for-kubernetes-tmc
-    namespace: tanzu-continuousdelivery-resources
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: gemfire-operator
-      namespace: service-instances
-
