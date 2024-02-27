@@ -1,25 +1,3 @@
-# prerequisites
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: tanzu-packages-cert-manager
-  namespace: tanzu-continuousdelivery-resources
-spec:
-  dependsOn:
-    - name: tanzu-gitops-serviceacct
-  interval: 1m0s
-  path: ./cert-manager
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: gemfire-for-kubernetes-tmc
-    namespace: tanzu-continuousdelivery-resources
-  healthChecks:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: cert-manager
-      namespace: cert-manager
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
