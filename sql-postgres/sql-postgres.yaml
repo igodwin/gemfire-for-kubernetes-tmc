@@ -2,13 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: tanzu-network-credentials-export-import
+  name: tanzu-network-credentials-sql-postgres
   namespace: tanzu-continuousdelivery-resources
 spec:
   dependsOn:
     - name: package-and-service-instances-namespaces
   interval: 1m0s
-  path: ./tanzu-network-credential
+  path: ./tanzu-network-credentials
   prune: true
   sourceRef:
     kind: GitRepository
@@ -28,7 +28,7 @@ metadata:
 spec:
   dependsOn:
     - name: tanzu-packages-cert-manager
-    - name: tanzu-network-credentials-export-import
+    - name: tanzu-network-credentials-sql-postgres
   interval: 1m0s
   path: ./sql-postgres/repository
   prune: true
