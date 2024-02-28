@@ -9,4 +9,4 @@ spec:
   type: "oci"
   url: oci://registry.tanzu.vmware.com/tanzu-sql-postgres
   secretRef:
-    name: tanzu-network-credentials
+    name: regsecret

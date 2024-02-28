@@ -2,13 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: tanzu-network-credentials-gemfire-for-kubernetes
+  name: gemfire-for-kubernetes-registry-credentials
   namespace: tanzu-continuousdelivery-resources
 spec:
   dependsOn:
     - name: package-and-service-instances-namespaces
   interval: 1m0s
-  path: ./tanzu-network-credentials
+  path: ./gemfire-for-kubernetes/registry-credentials
   prune: true
   sourceRef:
     kind: GitRepository
@@ -17,7 +17,7 @@ spec:
   healthChecks:
     - apiVersion: v1
       kind: Secret
-      name: tanzu-network-credentials
+      name: image-pull-secret
       namespace: service-instances
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -28,7 +28,7 @@ metadata:
 spec:
   dependsOn:
     - name: tanzu-packages-cert-manager
-    - name: tanzu-network-credentials-gemfire-for-kubernetes
+    - name: gemfire-for-kubernetes-registry-credentials
   interval: 1m0s
   path: ./gemfire-for-kubernetes/repository
   prune: true

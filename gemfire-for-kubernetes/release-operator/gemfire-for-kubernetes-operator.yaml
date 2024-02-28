@@ -14,5 +14,3 @@ spec:
         kind: HelmRepository
         name: gemfire-for-kubernetes
       interval: 60m
-  values:
-    imagePullSecretName: "tanzu-network-credentials"

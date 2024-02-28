@@ -14,5 +14,3 @@ spec:
         kind: HelmRepository
         name: sql-postgres
       interval: 60m
-  values:
-    dockerRegistrySecretName: "tanzu-network-credentials"

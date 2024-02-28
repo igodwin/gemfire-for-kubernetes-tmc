@@ -11,7 +11,7 @@ To deploy SQL with Postgres for Kubernetes using Kustomization, you will need to
 This secret will be automatically exported from the `default` namespace and imported into any necessary namespaces. It is used to authenticate with VMware Tanzu Network for the Helm chart and operator image. Follow the procedure provided in the TMC documentation: [Create a Kubernetes Secret in a Cluster or Cluster Group](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-BBE2404D-C2EE-41C7-B639-C0322783A74D.html)
 
 Use the following values when completing the form:
-* Use `tanzu-registry-credentials` as the name (step 5 in TMC documentation)
+* Use `regsecret` as the name (step 5 in TMC documentation)
 * Use `default` as the namespace (step 6 in TMC documentation)
 * With the secret type being `Registry secret`, use `registry.tanzu.vmware.com` as the Image registry URL (step 7, part A, in TMC documentation)
 * Use your own, valid VMware Tanzu Network username and password (step 7, part B, in TMC documentation)
