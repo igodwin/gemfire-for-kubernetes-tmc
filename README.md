@@ -31,7 +31,7 @@ Follow the procedure provided in the TMC documentation: [Add a Kustomization to 
 
 Use the following values when completing the form:
 * Use `base` as the name of the Kustomization (step 5 in TMC documentation)
-* Use the Git repository, `gemfire-for-kubernetes-tmc`, that was added during [step 3](#3-add-a-git-repository) of [Getting Started](#getting-started) (step 7 in TMC documentation)
+* Use the Git repository, `gemfire-for-kubernetes-tmc`, that was added during [step 3 of Getting Started](#3-add-a-git-repository) (step 7 in TMC documentation)
 * Use `base` as the path (step 8 in TMC documentation)
 
 

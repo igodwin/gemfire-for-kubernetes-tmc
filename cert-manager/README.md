@@ -1,7 +1,7 @@
 # Deploying cert-manager Using Kustomization
 This Kustomization definition can be added to Tanzu Mission Control (TMC) to deploy and manage [cert-manager](https://cert-manager.io/)
 
-## Getting Started
+## Procedure
 To deploy cert-manager using Kustomization, you will need to add a new Kustomization to the Cluster or Cluster Group. This task is performed on TMC.
 
 ### 1. Add the `cert-manager` Kustomization
@@ -10,5 +10,5 @@ Follow the procedure provided in the TMC documentation: [Add a Kustomization to 
 
 Use the following values when completing the form:
 * Use `cert-manager` as the name of the Kustomization (step 5 in TMC documentation)
-* Use the Git repository, `gemfire-for-kubernetes-tmc`, that was added during [step 3](#3-add-a-git-repository) of [Getting Started](#getting-started) (step 7 in TMC documentation)
+* Use the Git repository, `gemfire-for-kubernetes-tmc`, that was added during [step 3 of Getting Started](../README.md#3-add-a-git-repository) (step 7 in TMC documentation)
 * Use `cert-manager` as the path (step 8 in TMC documentation)

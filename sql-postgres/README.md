@@ -4,7 +4,7 @@ This Kustomization definition can be added to Tanzu Mission Control (TMC) to dep
 ## Prerequisites
 * [`cert-manager`](../cert-manager/README.md) Kustomization
 
-## Getting Started
+## Procedure
 To deploy SQL with Postgres for Kubernetes using Kustomization, you will need to create a registry secret named `tanzu-registry-credentials` in the `default` namespace, using TMC. Then, you may add a new Kustomization to the Cluster or Cluster Group. Each of these tasks is performed on TMC.
 
 #### 1. Create Registry Secret (if it does not already exist)
@@ -22,5 +22,5 @@ Follow the procedure provided in the TMC documentation: [Add a Kustomization to 
 
 Use the following values when completing the form:
 * Use `sql-postgres` as the name of the Kustomization (step 5 in TMC documentation)
-* Use the Git repository, `gemfire-for-kubernetes-tmc`, that was added during [step 3](#3-add-a-git-repository) of [Getting Started](#getting-started) (step 7 in TMC documentation)
+* Use the Git repository, `gemfire-for-kubernetes-tmc`, that was added during [step 3 of Getting Started](../README.md#3-add-a-git-repository) (step 7 in TMC documentation)
 * Use `sql-postgres` as the path (step 8 in TMC documentation)
