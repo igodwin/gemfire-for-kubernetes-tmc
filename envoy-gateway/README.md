@@ -1,5 +1,5 @@
 # Deploying Envoy Gateway Using Kustomization
-This Kustomization definition can be added to Tanzu Mission Control (TMC) to deploy and manage [Envoy Gateway](https://gateway.envoyproxy.io/)
+This Kustomization definition can be added to Tanzu Mission Control (TMC) to deploy and manage [Envoy Gateway](https://gateway.envoyproxy.io/). This will also create a `GatewayClass` named `envoy-gateway-class` that may be used when creating a `Gateway`.
 
 ## Getting Started
 To deploy Envoy Gateway using Kustomization, you will need to add a new Kustomization to the Cluster or Cluster Group. This task is performed on TMC.
