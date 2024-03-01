@@ -1,0 +1,14 @@
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: gemfire-gateway
+  namespace: service-instances
+spec:
+  gatewayClassName: envoy-gateway-class
+  listeners:
+  - name: my-gateway-listener
+    protocol: TLS
+    port: 9000
+    tls:
+      mode: Passthrough

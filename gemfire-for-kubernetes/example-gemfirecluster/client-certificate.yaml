@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gemfire-client-cert
+stringData:
+  password: password
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gemfire-client-cert
+spec:
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  subject:
+    organizations:
+    - VMware
+  commonName: gemfire-client-cert
+  isCA: false
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  usages:
+  - server auth
+  - client auth
+  issuerRef:
+    kind: ClusterIssuer
+    name: gemfire-ca-issuer
+    group: cert-manager.io
+  secretName: gemfire-client-cert
+  keystores:
+    pkcs12:
+      create: true
+      passwordSecretRef: # Password used to encrypt the keystore
+        key: password
+        name: gemfire-client-cert

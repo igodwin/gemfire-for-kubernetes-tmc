@@ -3,7 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: gemfire-for-kubernetes
-  namespace: service-instances
+  namespace: gemfire-system
 spec:
   interval: 5m
   type: "oci"

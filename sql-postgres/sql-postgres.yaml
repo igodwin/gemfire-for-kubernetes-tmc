@@ -2,11 +2,31 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: sql-postgres-registry-credentials
+  name: postgres-system-namespace
   namespace: tanzu-continuousdelivery-resources
 spec:
   dependsOn:
     - name: package-and-service-instances-namespaces
+  interval: 1m0s
+  path: ./sql-postgres/namespace
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: gemfire-for-kubernetes-tmc
+    namespace: tanzu-continuousdelivery-resources
+  healthChecks:
+    - apiVersion: v1
+      kind: Namespace
+      name: postgres-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: sql-postgres-registry-credentials
+  namespace: tanzu-continuousdelivery-resources
+spec:
+  dependsOn:
+    - name: postgres-system-namespace
   interval: 1m0s
   path: ./sql-postgres/registry-credentials
   prune: true
@@ -15,6 +35,10 @@ spec:
     name: gemfire-for-kubernetes-tmc
     namespace: tanzu-continuousdelivery-resources
   healthChecks:
+    - apiVersion: v1
+      kind: Secret
+      name: regsecret
+      namespace: postgres-system
     - apiVersion: v1
       kind: Secret
       name: regsecret
@@ -40,7 +64,7 @@ spec:
     - apiVersion: source.toolkit.fluxcd.io/v1beta2
       kind: HelmRepository
       name: sql-postgres
-      namespace: service-instances
+      namespace: postgres-system
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -61,4 +85,4 @@ spec:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       name: sql-postgres
-      namespace: service-instances
+      namespace: postgres-system

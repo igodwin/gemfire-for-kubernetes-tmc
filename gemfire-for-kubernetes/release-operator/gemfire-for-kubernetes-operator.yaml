@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: gemfire-operator
-  namespace: service-instances
+  namespace: gemfire-system
 spec:
   interval: 5m
   chart:
