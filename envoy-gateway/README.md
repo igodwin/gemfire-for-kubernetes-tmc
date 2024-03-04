@@ -10,5 +10,5 @@ Follow the procedure provided in the TMC documentation: [Add a Kustomization to 
 
 Use the following values when completing the form:
 * Use `envoy-gateway` as the name of the Kustomization (step 5 in TMC documentation)
-* Use the Git repository, `gemfire-for-kubernetes-tmc`, that was added during [step 3 of Getting Started](../README.md#3-add-a-git-repository) (step 7 in TMC documentation)
+* Use the Git repository, `gemfire-for-kubernetes-tmc`, that was added during [step 4 of Getting Started](../README.md#4-add-a-git-repository) (step 7 in TMC documentation)
 * Use `envoy-gateway` as the path (step 8 in TMC documentation)

@@ -6,6 +6,7 @@ This repository exists as an example of how to deploy VMware data services or so
 ## Prerequisites
 * Valid log in for [Tanzu Mission Control Console](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-855A8998-E19A-46AC-A833-12C347486EF7.html)
 * Be associated with the `cluster.admin` or `clustergroup.admin` role in TMC to perform the following:
+    * [Enable Helm Service on Your Cluster or Cluster Group](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-0927CDC8-A5C1-4FAE-9A7C-8A5D62FDF8D8.html)
     * [Enable Continuous Delivery for a Cluster or Cluster Group](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-AB0A6CCE-1CA4-4BDC-B22E-BFE2E2BD8D7F.html)
     * [Create a Repository Credential for a Cluster or Cluster Group](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-657661A2-B26E-412A-9A46-7467A44A075A.html)
     * [Add a Git Repository to a Cluster or Cluster Group](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-26C2D2F3-0E5C-4E56-B875-B7FB003267E4.html)
@@ -16,22 +17,25 @@ This repository exists as an example of how to deploy VMware data services or so
 ## Getting Started
 With the prerequisites satisfied, a Git repository needs to be added to the target Cluster or Cluster Group, then the `base` Kustomization. The Git repository must be named `gemfire-for-kubernetes-tmc` to use this repo as-is. Each task is performed on TMC.
 
-#### 1. Enable Continuous Delivery
+#### 1. Enable Helm Service
+Follow the procedure provided in the TMC documentation: [Enable Helm Service on Your Cluster or Cluster Group](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-0927CDC8-A5C1-4FAE-9A7C-8A5D62FDF8D8.html)
+
+#### 2. Enable Continuous Delivery
 Follow the procedure provided in the TMC documentation: [Enable Continuous Delivery for a Cluster or Cluster Group](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-AB0A6CCE-1CA4-4BDC-B22E-BFE2E2BD8D7F.html)
 
-#### 2. (Optional) Create a Repository Credential
+#### 3. (Optional) Create a Repository Credential
 When wanting to add a private Git repository, you will need to first create a repository credential. To do this, simply follow the procedure provided in the TMC documentation: [Create a Repository Credential for a Cluster or Cluster Group](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-657661A2-B26E-412A-9A46-7467A44A075A.html)
 
-#### 3. Add a Git Repository
+#### 4. Add a Git Repository
 Remember that the name of the Git repository must be `gemfire-for-kubernetes-tmc` to use this repo as-is. Follow the procedure provide in the TMC documentation: [Add a Git Repository to a Cluster or Cluster Group](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-26C2D2F3-0E5C-4E56-B875-B7FB003267E4.html)
 
-#### 4. Add the `base` Kustomization
+#### 5. Add the `base` Kustomization
 Follow the procedure provided in the TMC documentation: [Add a Kustomization to a Cluster or Cluster Group
 ](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-99916A6D-5DAF-4A26-88C7-28662F847F2F.html)
 
 Use the following values when completing the form:
 * Use `base` as the name of the Kustomization (step 5 in TMC documentation)
-* Use the Git repository, `gemfire-for-kubernetes-tmc`, that was added during [step 3 of Getting Started](#3-add-a-git-repository) (step 7 in TMC documentation)
+* Use the Git repository, `gemfire-for-kubernetes-tmc`, that was added during [step 4 of Getting Started](#4-add-a-git-repository) (step 7 in TMC documentation)
 * Use `base` as the path (step 8 in TMC documentation)
 
 
@@ -72,3 +76,6 @@ tanzu-packages-cert-manager                   4h51m   True      Applied revision
 
 ### Examine Kubernetes Secrets
 A lot of the image repositories referenced in this project are private, and require credentials to be specified. In the case of an issue with a `HelmRepository`, `HelmRelease`, or any other image pull, check the `README.md` for the specific data services product you are deploying to make sure you have the correct registry secret(s) created in TMC.
+
+### Missing Server API
+Several required CRDs and operators are installed when enabling [Helm Service](#1-enable-helm-service) and [Continuous Delivery](#2-enable-continuous-delivery) on a Cluster or Cluster Group. If, when examining Kustomizations, the message `HelmRelease/envoy-gateway-system/gateway-helm dry-run failed: failed to get API group resources: unable to retrieve the complete list of server APIs: helm.toolkit.fluxcd.io/v2beta1: the server could not find the requested resource` is encountered, check to make sure the features have been enabled.
