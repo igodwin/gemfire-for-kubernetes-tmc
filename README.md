@@ -27,7 +27,7 @@ Follow the procedure provided in the TMC documentation: [Enable Continuous Deliv
 When wanting to add a private Git repository, you will need to first create a repository credential. To do this, simply follow the procedure provided in the TMC documentation: [Create a Repository Credential for a Cluster or Cluster Group](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-657661A2-B26E-412A-9A46-7467A44A075A.html)
 
 #### 4. Add a Git Repository
-Remember that the name of the Git repository must be `gemfire-for-kubernetes-tmc` to use this repo as-is. Follow the procedure provide in the TMC documentation: [Add a Git Repository to a Cluster or Cluster Group](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-26C2D2F3-0E5C-4E56-B875-B7FB003267E4.html)
+Remember that the name of the Git repository must be `gemfire-for-kubernetes-tmc` to use this repo as-is, and the branch should be set to `main` (step 8 in TMC documentation). Follow the procedure provide in the TMC documentation: [Add a Git Repository to a Cluster or Cluster Group](https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/services/tanzumc-using/GUID-26C2D2F3-0E5C-4E56-B875-B7FB003267E4.html)
 
 #### 5. Add the `base` Kustomization
 Follow the procedure provided in the TMC documentation: [Add a Kustomization to a Cluster or Cluster Group
